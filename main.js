@@ -1,4 +1,6 @@
-var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
+// var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
+var phrase = 'grumpy'
+
 
 var chars = phrase.split('').map((char, index) => {
   return {
@@ -67,6 +69,10 @@ window.addEventListener('keydown', (event) => {
 
   if (event.key === appState.currentChar) {
     appState.currentCharIndex++
+    if (appState.currentCharIndex > appState.chars.length - 1) {
+      renderScore(appState)
+      return
+    }
     appState.currentChar = chars[appState.currentCharIndex].char
     appState.pressedKey = null
   }
