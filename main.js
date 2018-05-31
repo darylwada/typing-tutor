@@ -10,6 +10,7 @@ var chars = phrase.split('').map((char, index) => {
 
 var appState = {
   chars: chars,
+  currentChar: chars[0].char,
   currentCharIndex: 0,
   pressedKey: null
 }
@@ -30,12 +31,14 @@ function renderChar(charObj) {
   return $char
 }
 
-function renderPhrase(chars) {
+function renderPhrase(appState) {
   var $phrase = document.createElement('div')
   $phrase.classList.add('phrase')
-  chars.forEach(charObj => {
+
+  appState.chars.forEach(charObj => {
     $phrase.appendChild(renderChar(charObj))
   })
+
   document.body.appendChild($phrase)
 }
 
@@ -44,10 +47,19 @@ function clearPhrase() {
   $phrase.remove()
 }
 
-renderPhrase(chars)
+renderPhrase(appState)
 
 window.addEventListener('keydown', (event) => {
-  appState.pressedKey = event.key
+
+  if (event.key === appState.currentChar) {
+    appState.currentCharIndex++
+    appState.currentChar = chars[appState.currentCharIndex].char
+    appState.pressedKey = null
+  }
+  else {
+    appState.pressedKey = event.key
+  }
+
   clearPhrase()
-  renderPhrase(chars)
+  renderPhrase(appState)
 })
