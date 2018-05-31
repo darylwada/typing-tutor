@@ -23,10 +23,23 @@ function renderChar(charObj) {
   return $char
 }
 
-function renderAllChars(chars) {
+function renderPhrase(chars) {
+  var $phrase = document.createElement('div')
+  $phrase.classList.add('phrase')
   chars.forEach(charObj => {
-    document.body.appendChild(renderChar(charObj))
+    $phrase.appendChild(renderChar(charObj))
   })
+  document.body.appendChild($phrase)
 }
 
-renderAllChars(chars)
+function clearPhrase() {
+  var $phrase = document.querySelector('.phrase')
+  $phrase.remove()
+}
+
+renderPhrase(chars)
+
+window.addEventListener('keydown', () => {
+  clearPhrase()
+  renderPhrase(chars)
+})
