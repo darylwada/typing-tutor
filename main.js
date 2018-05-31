@@ -7,6 +7,10 @@ var chars = phrase.split('').map((char, index) => {
   }
 })
 
+var state = {
+  chars: chars,
+}
+
 function renderChar(charObj) {
   var $char = document.createElement('span')
   $char.textContent = charObj.char
