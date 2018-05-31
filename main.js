@@ -10,16 +10,22 @@ var chars = phrase.split('').map((char, index) => {
 
 var appState = {
   chars: chars,
-  currentCharIndex: 0
+  currentCharIndex: 0,
+  pressedKey: null
 }
 
 function renderChar(charObj) {
   var $char = document.createElement('span')
   $char.textContent = charObj.char
   $char.setAttribute('id', charObj.index)
+
   if (appState.currentCharIndex === charObj.index) {
     $char.classList.toggle('current-char')
+    if (appState.pressedKey !== charObj.char && appState.pressedKey !== null) {
+      charObj.failures++
+    }
   }
+
   return $char
 }
 
@@ -39,7 +45,8 @@ function clearPhrase() {
 
 renderPhrase(chars)
 
-window.addEventListener('keydown', () => {
+window.addEventListener('keydown', (event) => {
+  appState.pressedKey = event.key
   clearPhrase()
   renderPhrase(chars)
 })
