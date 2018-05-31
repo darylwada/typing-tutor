@@ -9,6 +9,7 @@ var chars = phrase.split('').map((char, index) => {
 
 var state = {
   chars: chars,
+  currentChar: 0
 }
 
 function renderChar(charObj) {
