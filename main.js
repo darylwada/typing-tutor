@@ -3,7 +3,8 @@ var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
 var chars = phrase.split('').map((char, index) => {
   return {
     char: char,
-    index: index
+    index: index,
+    failures: 0
   }
 })
 
