@@ -16,8 +16,7 @@ function renderChar(charObj) {
   var $char = document.createElement('span')
   $char.textContent = charObj.char
   $char.setAttribute('id', charObj.index)
-  charElementIndex = parseInt($char.id)
-  if (appState.currentCharIndex === charElementIndex) {
+  if (appState.currentCharIndex === charObj.index) {
     $char.classList.toggle('current-char')
   }
   return $char
