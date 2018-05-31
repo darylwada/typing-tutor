@@ -47,6 +47,14 @@ function clearPhrase() {
   $phrase.remove()
 }
 
+function calculateAccuracy(appState) {
+  var errorCount = appState.chars.reduce((acc, charObj) => {
+    return acc + charObj.failures
+  }, 0)
+  var keyPressCount = errorCount + appState.chars.length
+  return 100 - Math.round((errorCount / keyPressCount) * 100)
+}
+
 renderPhrase(appState)
 
 window.addEventListener('keydown', (event) => {
