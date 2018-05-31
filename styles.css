@@ -11,3 +11,8 @@ h1 {
   border-radius: 10px;
   margin-bottom: 10%;
 }
+
+.current-char {
+  color: rgb(46, 213, 68);
+  border-bottom: 1px solid rgb(46, 213, 68);
+}
