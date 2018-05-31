@@ -15,3 +15,5 @@ function renderAllChars(chars) {
     document.body.appendChild(renderChar(charObj))
   })
 }
+
+renderAllChars(chars)
