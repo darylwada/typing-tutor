@@ -16,6 +16,10 @@ function renderChar(charObj) {
   var $char = document.createElement('span')
   $char.textContent = charObj.char
   $char.setAttribute('id', charObj.index)
+  charElementIndex = parseInt($char.id)
+  if (state.currentChar === charElementIndex) {
+    $char.classList.toggle('current')
+  }
   return $char
 }
 
