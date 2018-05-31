@@ -59,6 +59,7 @@ function calculateAccuracy(appState) {
 
 function renderScore(appState) {
   var $score = document.createElement('div')
+  $score.classList.add('score')
   $score.textContent = `Good job! You had ${calculateAccuracy(appState)}% accuracy!`
   document.body.appendChild($score)
 }
