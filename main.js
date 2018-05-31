@@ -1,5 +1,4 @@
-// var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
-var phrase = 'grumpy'
+var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
 
 
 var chars = phrase.split('').map((char, index) => {
@@ -14,7 +13,8 @@ var appState = {
   chars: chars,
   currentChar: chars[0].char,
   currentCharIndex: 0,
-  pressedKey: null
+  pressedKey: null,
+  gameOver: false
 }
 
 function renderChar(charObj) {
@@ -64,14 +64,32 @@ function renderScore(appState) {
   document.body.appendChild($score)
 }
 
+function clearScore() {
+  var $score = document.querySelector('.score')
+  $score.remove()
+}
+
 renderPhrase(appState)
 
 window.addEventListener('keydown', (event) => {
+
+  if (appState.gameOver) {
+    chars.forEach(charObj => charObj.failures = 0)
+    appState.currentChar = chars[0].char
+    appState.currentCharIndex = 0
+    appState.pressedKey = null
+    appState.gameOver = false
+    clearScore()
+    clearPhrase()
+    renderPhrase(appState)
+    return
+  }
 
   if (event.key === appState.currentChar) {
     appState.currentCharIndex++
     if (appState.currentCharIndex > appState.chars.length - 1) {
       renderScore(appState)
+      appState.gameOver = true
       return
     }
     appState.currentChar = chars[appState.currentCharIndex].char
