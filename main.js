@@ -1,12 +1,16 @@
 var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
 
-var chars = phrase.split('').map((char, i)=> {
-  return {char}
+var chars = phrase.split('').map((char, index) => {
+  return {
+    char: char,
+    index: index
+  }
 })
 
 function renderChar(charObj) {
   var $char = document.createElement('span')
   $char.textContent = charObj.char
+  $char.setAttribute('id', charObj.index)
   return $char
 }
 
