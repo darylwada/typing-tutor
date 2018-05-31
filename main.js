@@ -7,9 +7,9 @@ var chars = phrase.split('').map((char, index) => {
   }
 })
 
-var state = {
+var appState = {
   chars: chars,
-  currentChar: 0
+  currentCharIndex: 0
 }
 
 function renderChar(charObj) {
@@ -17,8 +17,8 @@ function renderChar(charObj) {
   $char.textContent = charObj.char
   $char.setAttribute('id', charObj.index)
   charElementIndex = parseInt($char.id)
-  if (state.currentChar === charElementIndex) {
-    $char.classList.toggle('current')
+  if (appState.currentCharIndex === charElementIndex) {
+    $char.classList.toggle('current-char')
   }
   return $char
 }
