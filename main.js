@@ -22,6 +22,7 @@ function renderChar(charObj) {
   if (appState.currentCharIndex === charObj.index) {
     $char.classList.toggle('current-char')
     if (appState.pressedKey !== charObj.char && appState.pressedKey !== null) {
+      $char.classList.toggle('failed')
       charObj.failures++
     }
   }
