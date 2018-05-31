@@ -55,6 +55,12 @@ function calculateAccuracy(appState) {
   return 100 - Math.round((errorCount / keyPressCount) * 100)
 }
 
+function renderScore(appState) {
+  var $score = document.createElement('div')
+  $score.textContent = `Good job! You had ${calculateAccuracy(appState)}% accuracy!`
+  document.body.appendChild($score)
+}
+
 renderPhrase(appState)
 
 window.addEventListener('keydown', (event) => {
