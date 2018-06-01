@@ -1,4 +1,5 @@
-var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
+// var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
+var phrase = 'grump'
 
 
 var chars = phrase.split('').map((char, index) => {
@@ -20,7 +21,6 @@ var appState = {
 function renderChar(charObj) {
   var $char = document.createElement('span')
   $char.textContent = charObj.char
-  $char.setAttribute('id', charObj.index)
 
   if (appState.currentCharIndex === charObj.index) {
     $char.classList.toggle('current-char')
@@ -69,6 +69,18 @@ function clearScore() {
   $score.remove()
 }
 
+function renderPrompt() {
+  var $prompt = document.createElement('div')
+  $prompt.classList.add('prompt')
+  $prompt.textContent = 'Press any key to play again...'
+  document.body.appendChild($prompt)
+}
+
+function clearPrompt() {
+  var $prompt = document.querySelector('.prompt')
+  $prompt.remove()
+}
+
 renderPhrase(appState)
 
 window.addEventListener('keydown', (event) => {
@@ -80,6 +92,7 @@ window.addEventListener('keydown', (event) => {
     appState.pressedKey = null
     appState.gameOver = false
     clearScore()
+    clearPrompt()
     clearPhrase()
     renderPhrase(appState)
     return
@@ -89,6 +102,7 @@ window.addEventListener('keydown', (event) => {
     appState.currentCharIndex++
     if (appState.currentCharIndex > appState.chars.length - 1) {
       renderScore(appState)
+      renderPrompt()
       appState.gameOver = true
       return
     }

@@ -27,3 +27,8 @@ h1 {
   font-size: 40px;
   color: rgb(46, 213, 68);
 }
+
+.prompt {
+  margin-top: 5%;
+  font-size: 20px;
+}
