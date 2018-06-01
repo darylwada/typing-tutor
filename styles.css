@@ -9,7 +9,29 @@ body {
 h1 {
   border: 2px solid rgb(26, 101, 149);
   border-radius: 10px;
-  margin-bottom: 10%;
+  margin-bottom: 20px;
+}
+
+.btn-container {
+  display: inline-block;
+  width: 400px;
+}
+
+.btn-container > input {
+  visibility: hidden;
+  position: absolute;
+}
+
+.btn-container > input + div {
+  cursor: pointer;
+}
+
+.btn-container > input:checked + div {
+  border: 2px solid rgb(26, 101, 149);
+}
+
+.phrase {
+  margin-top: 100px;
 }
 
 .current-char {
