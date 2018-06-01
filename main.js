@@ -92,8 +92,7 @@ renderPhrase(appState)
 window.addEventListener('keydown', (event) => {
 
   if (appState.gameOver) {
-    // chars.forEach(charObj => charObj.failures = 0)
-    chars= getChars(generatePhrase())
+    chars = getChars(generatePhrase())
     appState.chars = chars
     appState.currentChar = chars[0].char
     appState.currentCharIndex = 0
