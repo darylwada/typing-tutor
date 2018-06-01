@@ -1,14 +1,30 @@
-// var phrase = 'grumpy wizards make toxic brew for the evil queen and jack'
-var phrase = 'grump'
+var people = ['Ron', 'Tim', 'Daryl', 'Jerome', 'Arthur', 'Taylor', 'Jeff', 'Franz', 'JJ']
+var verbs = ['poked', 'destroyed', 'created', 'kicked', 'threw', 'punched', 'fought', 'laughed at', 'ran away from']
+var articles = ['my', 'your', 'the', 'a', 'his', 'that', 'her']
+var adjectives = ['grumpy', 'polite', 'stupid', 'crazy', 'huge', 'tiny', 'obnoxious', 'friendly', 'ugly', 'old']
+var nouns = ['cat', 'potato', 'puppy', 'refrigerator', 'llama', 'computer', 'idiot', 'airplane'];
 
+function randomIndex(array) {
+  return Math.floor(Math.random() * array.length)
+}
 
-var chars = phrase.split('').map((char, index) => {
-  return {
-    char: char,
-    index: index,
-    failures: 0
-  }
-})
+function generatePhrase() {
+  return [ people[randomIndex(people)], verbs[randomIndex(verbs)], articles[randomIndex(articles)]
+         , adjectives[randomIndex(adjectives)], nouns[randomIndex(nouns)] ].join(' ')
+}
+
+function getChars(phrase) {
+  var chars = phrase.split('').map((char, index) => {
+    return {
+      char: char,
+      index: index,
+      failures: 0
+    }
+  })
+  return chars
+}
+
+var chars = getChars(generatePhrase())
 
 var appState = {
   chars: chars,
@@ -76,7 +92,9 @@ renderPhrase(appState)
 window.addEventListener('keydown', (event) => {
 
   if (appState.gameOver) {
-    chars.forEach(charObj => charObj.failures = 0)
+    // chars.forEach(charObj => charObj.failures = 0)
+    chars= getChars(generatePhrase())
+    appState.chars = chars
     appState.currentChar = chars[0].char
     appState.currentCharIndex = 0
     appState.pressedKey = null
