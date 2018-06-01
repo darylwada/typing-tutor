@@ -44,11 +44,6 @@ function renderPhrase(appState) {
   document.body.appendChild($phrase)
 }
 
-function clearPhrase() {
-  var $phrase = document.querySelector('.phrase')
-  $phrase.remove()
-}
-
 function calculateAccuracy(appState) {
   var errorCount = appState.chars.reduce((acc, charObj) => {
     return acc + charObj.failures
@@ -64,11 +59,6 @@ function renderScore(appState) {
   document.body.appendChild($score)
 }
 
-function clearScore() {
-  var $score = document.querySelector('.score')
-  $score.remove()
-}
-
 function renderPrompt() {
   var $prompt = document.createElement('div')
   $prompt.classList.add('prompt')
@@ -76,9 +66,9 @@ function renderPrompt() {
   document.body.appendChild($prompt)
 }
 
-function clearPrompt() {
-  var $prompt = document.querySelector('.prompt')
-  $prompt.remove()
+function clearGame() {
+  var gameElements = Array.from(document.body.children).slice(2)
+  gameElements.forEach(element => element.remove())
 }
 
 renderPhrase(appState)
@@ -91,9 +81,7 @@ window.addEventListener('keydown', (event) => {
     appState.currentCharIndex = 0
     appState.pressedKey = null
     appState.gameOver = false
-    clearScore()
-    clearPrompt()
-    clearPhrase()
+    clearGame()
     renderPhrase(appState)
     return
   }
@@ -113,6 +101,6 @@ window.addEventListener('keydown', (event) => {
     appState.pressedKey = event.key
   }
 
-  clearPhrase()
+  clearGame()
   renderPhrase(appState)
 })
