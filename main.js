@@ -91,6 +91,10 @@ renderPhrase(appState)
 
 window.addEventListener('keydown', (event) => {
 
+  if (event.key === 'Shift') {
+    return
+  }
+
   if (appState.gameOver) {
     chars = getChars(generatePhrase())
     appState.chars = chars
