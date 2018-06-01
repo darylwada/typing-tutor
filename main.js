@@ -166,7 +166,7 @@ window.addEventListener('keydown', (event) => {
   else {
     appState.pressedKey = event.key
   }
-  console.log(appState);
+
   clearGame()
   renderPhrase(appState)
 })
