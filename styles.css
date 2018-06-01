@@ -9,7 +9,36 @@ body {
 h1 {
   border: 2px solid rgb(26, 101, 149);
   border-radius: 10px;
-  margin-bottom: 10%;
+  margin-bottom: 20px;
+}
+
+.btn-container {
+  display: inline-block;
+  width: 400px;
+  margin-bottom: 100px;
+}
+
+.btn-container > input {
+  visibility: hidden;
+  position: absolute;
+}
+
+.btn-container > input + div {
+  cursor: pointer;
+}
+
+.btn-container > input:checked + div {
+  border: 2px solid rgb(26, 101, 149);
+}
+
+.phrase {
+  width: 750px;
+  margin: 0 auto;
+}
+
+.code-phrase {
+  text-align: left;
+  font-family: monospace;
 }
 
 .current-char {

@@ -4,13 +4,27 @@ var articles = ['my', 'your', 'the', 'a', 'his', 'that', 'her']
 var adjectives = ['grumpy', 'polite', 'stupid', 'crazy', 'huge', 'tiny', 'obnoxious', 'friendly', 'ugly', 'old']
 var nouns = ['cat', 'potato', 'puppy', 'refrigerator', 'llama', 'computer', 'idiot', 'airplane'];
 
+var jsPhrases = [
+  'function foo() {\n  console.log(bar)\n}',
+  'const foo = () => {\n  console.log(bar)\n}',
+  'for (var i = 0; i < foo.length; i++) {\n  console.log(bar)\n}',
+  'foo.filter((element) => {\n  return element > bar\n})',
+  'var foo = {\n  bar: a,\n  baz: b\n}'
+]
+
 function randomIndex(array) {
   return Math.floor(Math.random() * array.length)
 }
 
-function generatePhrase() {
-  return [ people[randomIndex(people)], verbs[randomIndex(verbs)], articles[randomIndex(articles)]
-         , adjectives[randomIndex(adjectives)], nouns[randomIndex(nouns)] ].join(' ')
+function generatePhrase(language) {
+  if (language === 'english') {
+    return [ people[randomIndex(people)], verbs[randomIndex(verbs)], articles[randomIndex(articles)]
+           , adjectives[randomIndex(adjectives)], nouns[randomIndex(nouns)] ].join(' ')
+  }
+  else if (language === 'javascript') {
+    return jsPhrases[randomIndex(jsPhrases)]
+  }
+
 }
 
 function getChars(phrase) {
@@ -24,19 +38,29 @@ function getChars(phrase) {
   return chars
 }
 
-var chars = getChars(generatePhrase())
+var chars = getChars(generatePhrase('english'))
 
 var appState = {
   chars: chars,
   currentChar: chars[0].char,
   currentCharIndex: 0,
   pressedKey: null,
-  gameOver: false
+  gameOver: false,
+  language: 'english'
 }
 
 function renderChar(charObj) {
   var $char = document.createElement('span')
   $char.textContent = charObj.char
+
+  if (appState.language === 'javascript') {
+    if (charObj.char === '\n') {
+      $char.textContent = '↵'
+    }
+    if (charObj.char === ' ' ) {
+      $char.innerHTML = '&nbsp;'
+    }
+  }
 
   if (appState.currentCharIndex === charObj.index) {
     $char.classList.toggle('current-char')
@@ -50,14 +74,30 @@ function renderChar(charObj) {
 }
 
 function renderPhrase(appState) {
-  var $phrase = document.createElement('div')
-  $phrase.classList.add('phrase')
+  var $phraseLines = {}
+  $phraseLines[0] = document.createElement('div')
+  $phraseLines[0].classList.add('phrase')
 
+  if (appState.language === 'javascript') {
+    $phraseLines[0].classList.add('code-phrase')
+  }
+
+  var i = 0
   appState.chars.forEach(charObj => {
-    $phrase.appendChild(renderChar(charObj))
+    if (charObj.char === '\n') {
+      $phraseLines[i].appendChild(renderChar(charObj))
+      document.body.appendChild($phraseLines[i])
+      i++
+      $phraseLines[i] = document.createElement('div')
+      $phraseLines[i].classList.add('phrase')
+      $phraseLines[i].classList.add('code-phrase')
+    }
+    else {
+      $phraseLines[i].appendChild(renderChar(charObj))
+    }
   })
 
-  document.body.appendChild($phrase)
+  document.body.appendChild($phraseLines[i])
 }
 
 function calculateAccuracy(appState) {
@@ -83,8 +123,19 @@ function renderPrompt() {
 }
 
 function clearGame() {
-  var gameElements = Array.from(document.body.children).slice(2)
+  var gameElements = Array.from(document.body.children).slice(4)
   gameElements.forEach(element => element.remove())
+}
+
+function resetGame(appState) {
+  chars = getChars(generatePhrase(appState.language))
+  appState.chars = chars
+  appState.currentChar = chars[0].char
+  appState.currentCharIndex = 0
+  appState.pressedKey = null
+  appState.gameOver = false
+  clearGame()
+  renderPhrase(appState)
 }
 
 renderPhrase(appState)
@@ -96,18 +147,12 @@ window.addEventListener('keydown', (event) => {
   }
 
   if (appState.gameOver) {
-    chars = getChars(generatePhrase())
-    appState.chars = chars
-    appState.currentChar = chars[0].char
-    appState.currentCharIndex = 0
-    appState.pressedKey = null
-    appState.gameOver = false
-    clearGame()
-    renderPhrase(appState)
+    resetGame(appState)
     return
   }
 
-  if (event.key === appState.currentChar) {
+  if (event.key === appState.currentChar
+      || event.key === 'Enter' && appState.currentChar.charCodeAt() === 10) {
     appState.currentCharIndex++
     if (appState.currentCharIndex > appState.chars.length - 1) {
       renderScore(appState)
@@ -124,4 +169,13 @@ window.addEventListener('keydown', (event) => {
 
   clearGame()
   renderPhrase(appState)
+})
+
+var $radioBtns = document.querySelectorAll('input')
+$radioBtns.forEach(btn => {
+  btn.addEventListener('click', (event) => {
+    appState.language = event.target.value
+    chars = getChars(generatePhrase(appState.language))
+    resetGame(appState)
+  })
 })
