@@ -177,7 +177,5 @@ $radioBtns.forEach(btn => {
     appState.language = event.target.value
     chars = getChars(generatePhrase(appState.language))
     resetGame(appState)
-    clearGame()
-    renderPhrase(appState)
   })
 })
