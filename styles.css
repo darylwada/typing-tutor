@@ -21,3 +21,14 @@ h1 {
   color: rgb(226, 24, 24);
   border-bottom: 1px solid rgb(226, 24, 24);
 }
+
+.score {
+  margin-top: 10%;
+  font-size: 40px;
+  color: rgb(46, 213, 68);
+}
+
+.prompt {
+  margin-top: 5%;
+  font-size: 20px;
+}
