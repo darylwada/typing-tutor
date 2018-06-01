@@ -32,20 +32,19 @@ h1 {
 }
 
 .phrase {
-  width: 700px;
+  width: 750px;
   margin: 0 auto;
 }
 
 .code-phrase {
-  width: 500px;
   text-align: left;
   font-family: monospace;
 }
 
 .mono {
-  display: inline-block;
-  line-height: 38px;
-  width: 19.2px;
+  /* display: inline-block; */
+  /* line-height: 38px; */
+  /* width: 19.2px; */
 }
 
 .current-char {

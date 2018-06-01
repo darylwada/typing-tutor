@@ -5,7 +5,11 @@ var adjectives = ['grumpy', 'polite', 'stupid', 'crazy', 'huge', 'tiny', 'obnoxi
 var nouns = ['cat', 'potato', 'puppy', 'refrigerator', 'llama', 'computer', 'idiot', 'airplane'];
 
 var jsPhrases = [
-  'function foo() {\n  console.log(bar)\n}'
+  'function foo() {\n  console.log(bar)\n}',
+  'const foo = () => {\n  console.log(bar)\n}',
+  'for (var i = 0; i < foo.length; i++) {\n  console.log(bar)\n}',
+  'foo.filter((element) => {\n  return element > bar\n})',
+  'var foo = {\n  bar: a,\n  baz: b\n}'
 ]
 
 function randomIndex(array) {
@@ -18,7 +22,7 @@ function generatePhrase(language) {
            , adjectives[randomIndex(adjectives)], nouns[randomIndex(nouns)] ].join(' ')
   }
   else if (language === 'javascript') {
-    return jsPhrases[0]
+    return jsPhrases[randomIndex(jsPhrases)]
   }
 
 }
@@ -51,6 +55,12 @@ function renderChar(charObj) {
 
   if (appState.language === 'javascript') {
     $char.classList.add('mono')
+    if (charObj.char === '\n') {
+      $char.textContent = '↵'
+    }
+    if (charObj.char === ' ' ) {
+      $char.innerHTML = '&nbsp;'
+    }
   }
 
   if (appState.currentCharIndex === charObj.index) {
@@ -143,8 +153,7 @@ window.addEventListener('keydown', (event) => {
   }
 
   if (event.key === appState.currentChar
-      || event.key === 'Enter' && appState.currentChar.charCodeAt() === 10
-      || event.key === 'Tab' && appState.currentChar.charCodeAt() === 9) {
+      || event.key === 'Enter' && appState.currentChar.charCodeAt() === 10) {
     appState.currentCharIndex++
     if (appState.currentCharIndex > appState.chars.length - 1) {
       renderScore(appState)
