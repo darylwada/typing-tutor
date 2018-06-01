@@ -54,7 +54,6 @@ function renderChar(charObj) {
   $char.textContent = charObj.char
 
   if (appState.language === 'javascript') {
-    $char.classList.add('mono')
     if (charObj.char === '\n') {
       $char.textContent = '↵'
     }
